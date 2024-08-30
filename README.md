@@ -2,7 +2,7 @@
 
 ## Overview
 
-Quantum ULLM is a next-generation Universal Large Language Model (ULLM) designed to leverage quantum computing for complex problem-solving and advanced data processing. This repository provides a comprehensive guide to assembling, compiling, and running the system as a complete LLM, integrating Quantum Neural Networks, Variational Quantum Circuits, Quantum Data Encoding, and advanced inference mechanisms into a unified model.
+Quantum ULLM is a next-generation Universal Large Language Model (ULLM) designed to leverage quantum computing for complex problem-solving and advanced data processing. This repository provides a comprehensive guide to assembling, compiling, and running the system as a complete LLM, integrating Quantum Neural Networks, Variational Quantum Circuits, Quantum Data Encoding, and advanced inference mechanisms into a unified model. This model allows you to use English or your native language directly as a programming language—a concept we call Natural Language Programming. The programming language powering this innovation is named Brion, enabling intuitive and powerful quantum-native code without the complexities of classical syntax.
 
 ## Key Features
 
