@@ -1,1 +1,0 @@
-# QuantumLLM-The-First-Quantum-Powered-Large-Language-Model
