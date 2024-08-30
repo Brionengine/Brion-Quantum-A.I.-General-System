@@ -1,0 +1,65 @@
+class TerminalInterface:
+    def __init__(self, nlp_engine):
+        """
+        Initializes the terminal interface with a given NLP engine.
+        """
+        self.nlp_engine = nlp_engine
+        self.commands = {
+            "help": self.display_help,
+            "exit": self.exit_interface,
+            "tokenize": self.tokenize_command,
+            "parse": self.parse_command,
+            "entities": self.entities_command,
+        }
+
+    def start(self):
+        """
+        Starts the terminal interface loop.
+        """
+        print("Welcome to the Terminal Interface. Type 'help' for a list of commands.")
+        while True:
+            user_input = input(">>> ").strip().lower()
+            if user_input in self.commands:
+                self.commands[user_input]()
+            else:
+                print(f"Unknown command: '{user_input}'. Type 'help' for assistance.")
+
+    def tokenize_command(self):
+        text = input("Enter text to tokenize: ")
+        tokens = self.nlp_engine.tokenize_text(text)
+        print("Tokens:", tokens)
+
+    def parse_command(self):
+        text = input("Enter text to parse: ")
+        parsed = self.nlp_engine.parse_text(text)
+        print("Parsed structure:", parsed)
+
+    def entities_command(self):
+        text = input("Enter text to extract entities: ")
+        entities = self.nlp_engine.extract_entities(text)
+        print("Entities:", entities)
+
+    def display_help(self):
+        """
+        Displays a list of available commands.
+        """
+        print("Available commands:")
+        print("  tokenize - Tokenize input text")
+        print("  parse    - Parse input text for dependencies")
+        print("  entities - Extract entities from input text")
+        print("  help     - Display this help message")
+        print("  exit     - Exit the terminal interface")
+
+    def exit_interface(self):
+        """
+        Exits the terminal interface.
+        """
+        print("Exiting Terminal Interface.")
+        exit()
+
+# Example usage
+if __name__ == "__main__":
+    from NLPEngine import NLPEngine
+    nlp_engine = NLPEngine()
+    terminal = TerminalInterface(nlp_engine)
+    terminal.start()

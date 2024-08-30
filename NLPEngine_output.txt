@@ -1,0 +1,47 @@
+import spacy
+
+class NLPEngine:
+    def __init__(self, model_name: str = "en_core_web_sm"):
+        """
+        Initializes the NLP engine with the specified model.
+        """
+        try:
+            self.nlp = spacy.load(model_name)
+            print(f"NLP model '{model_name}' loaded successfully.")
+        except Exception as e:
+            print(f"Failed to load model '{model_name}'. Error: {e}")
+            raise
+
+    def process_text(self, text: str):
+        """
+        Processes the input text and returns a Spacy Doc object.
+        """
+        return self.nlp(text)
+
+    def tokenize_text(self, text: str):
+        """
+        Tokenize the input text and returns a list of tokens.
+        """
+        doc = self.process_text(text)
+        return [token.text for token in doc]
+
+    def parse_text(self, text: str):
+        """
+        Parses the input text and returns a list of (token, dependency, head) tuples.
+        """
+        doc = self.process_text(text)
+        return [(token.text, token.dep_, token.head.text) for token in doc]
+
+    def extract_entities(self, text: str):
+        """
+        Extracts named entities from the input text and returns a list of (entity, label) tuples.
+        """
+        doc = self.process_text(text)
+        return [(token.text, token.pos_) for token in doc]
+
+# Example usage
+if __name__ == "__main__":
+    engine = NLPEngine()
+    print("Tokens:", engine.tokenize_text("Hello, we are refining and optimizing code."))
+    print("Parsed structure:", engine.parse_text("The quick brown fox jumps over the lazy dog."))
+    print("Entities:", engine.extract_entities("OpenAI is located in San Francisco."))
