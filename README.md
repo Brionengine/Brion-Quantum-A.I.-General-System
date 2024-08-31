@@ -121,7 +121,7 @@ briontechengineer@gmail.com
 Project Link: https://github.com/your-username/quantum-ullm
 
 Acknowledgments
-Special thanks to the contributors and the open-source community for supporting this project. Lastly, special acknowledgements and thanks to the team!
+Special thanks to the contributors and the open-source community for supporting this project. Lastly special acknowledgements, love, and thanks to the team!
 
 
 ---
