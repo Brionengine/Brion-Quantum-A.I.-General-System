@@ -35,7 +35,7 @@ Install the required Python libraries listed in requirements.txt:
 pip install -r requirements.txt
 
 Assembling the ULLM System
-To assemble and compile the Quantum ULLM as a complete Large Language Model, follow these steps:
+To assemble and compile the Quantum ULLM assemble the code texts and scripts like you normally would. As a complete Large Language Model, follow these steps:
 
 Step 1: Configure the System
 Set up necessary configuration parameters by editing config.py to align with your backend and environment settings.
