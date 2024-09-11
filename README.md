@@ -41,7 +41,7 @@ Step 1: Configure the System
 Set up necessary configuration parameters by editing config.py to align with your backend and environment settings.
 
 Step 2: Compile Quantum Components
-Run the following scripts to compile individual components, which will be integrated into the full ULLM:
+Compile essential/quantum components like you normally assemble open source programs and applications. Run the following scripts to compile individual components, which will be integrated into the full ULLM:
 
 Compile Quantum Neural Networks:
 
