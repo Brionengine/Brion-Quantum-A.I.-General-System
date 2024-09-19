@@ -1,6 +1,11 @@
 # QuantumFusion
 
-QuantumFusion is an application that integrates quantum computing algorithms with AI models and robust security protocols.
+QuantumAion is a revolutionary platform that combines quantum computing and AI. Designed to offer high-speed parallel computation, it leverages advanced quantum algorithms to solve complex problems.
+
+## Features
+- **Quantum Fusion Core**: Harness the power of quantum mechanics for parallel computation.
+- **Secure Protocols**: Built-in cryptography and security features.
+- **AI Engine**: Advanced models for predictive analysis.
 
 ## Installation
 
