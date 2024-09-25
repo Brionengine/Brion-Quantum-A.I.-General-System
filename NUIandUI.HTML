@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warrior Mode Interface</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+  <div class="container mt-5 text-center">
+    <h1>Warrior Mode Control</h1>
+    <button id="startBtn" class="btn btn-success">Activate Voice Control</button>
+    <div id="status" class="mt-4">Waiting for command...</div>
+    <div id="gesture-area" class="mt-5"></div>
+  </div>
+
+  <script>
+    // Voice Command Logic
+    const startBtn = document.getElementById('startBtn');
+    const status = document.getElementById('status');
+
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+    recognition.onstart = () => {
+      status.innerText = "Listening...";
+    };
+
+    recognition.onresult = (event) => {
+      const command = event.results[0][0].transcript.toLowerCase();
+      status.innerText = `Command: ${command}`;
+
+      if (command.includes("activate warrior mode")) {
+        status.innerText = "Warrior Mode Activated!";
+        // Add logic for activating warrior mode
+      }
+    };
+
+    startBtn.addEventListener('click', () => {
+      recognition.start();
+    });
+
+    // Basic Gesture Controls (For Demo)
+    const gestureArea = document.getElementById('gesture-area');
+    let startX = 0;
+
+    gestureArea.addEventListener('mousedown', (event) => {
+      startX = event.clientX;
+    });
+
+    gestureArea.addEventListener('mouseup', (event) => {
+      const endX = event.clientX;
+      if (endX - startX > 50) {
+        status.innerText = "Gesture: Swiped Right!";
+        // Add gesture logic
+      } else if (startX - endX > 50) {
+        status.innerText = "Gesture: Swiped Left!";
+        // Add gesture logic
+      }
+    });
+  </script>
+</body>
+</html>
