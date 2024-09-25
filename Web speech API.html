@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warrior Mode NUI</title>
+</head>
+<body>
+  <h1>Speak to Ryan</h1>
+  <button id="start">Start Voice Command</button>
+  <div id="output"></div>
+
+  <script>
+    const startBtn = document.getElementById('start');
+    const output = document.getElementById('output');
+
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+    recognition.onstart = () => {
+      output.innerText = "Listening...";
+    };
+
+    recognition.onresult = (event) => {
+      const command = event.results[0][0].transcript.toLowerCase();
+      output.innerText = `You said: ${command}`;
+
+      // Example of controlling Ryan's actions based on voice commands
+      if (command.includes("activate warrior mode")) {
+        output.innerText = "Warrior Mode Activated!";
+        // Insert code to trigger Ryan's Warrior Mode here
+      } else if (command.includes("stop")) {
+        output.innerText = "Ryan Stopped.";
+        // Insert code to stop Ryan's actions here
+      }
+    };
+
+    startBtn.addEventListener('click', () => {
+      recognition.start();
+    });
+  </script>
+</body>
+</html>

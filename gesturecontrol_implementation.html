@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gesture Control</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    #gesture-area { width: 100vw; height: 100vh; background-color: #eee; }
+    #status { position: absolute; top: 10px; left: 10px; font-size: 20px; }
+  </style>
+</head>
+<body>
+  <div id="gesture-area"></div>
+  <div id="status">Move your mouse or touch the screen to gesture</div>
+
+  <script>
+    const gestureArea = document.getElementById('gesture-area');
+    const status = document.getElementById('status');
+
+    let startX = 0, startY = 0;
+
+    gestureArea.addEventListener('mousedown', (event) => {
+      startX = event.clientX;
+      startY = event.clientY;
+    });
+
+    gestureArea.addEventListener('mouseup', (event) => {
+      const endX = event.clientX;
+      const endY = event.clientY;
+      handleGesture(startX, startY, endX, endY);
+    });
+
+    function handleGesture(startX, startY, endX, endY) {
+      const dx = endX - startX;
+      const dy = endY - startY;
+      
+      if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 20) {
+          status.innerText = 'Swiped Right!';
+          // Add logic to trigger Ryan's action for swiping right
+        } else if (dx < -20) {
+          status.innerText = 'Swiped Left!';
+          // Add logic to trigger Ryan's action for swiping left
+        }
+      } else {
+        if (dy > 20) {
+          status.innerText = 'Swiped Down!';
+          // Add logic for swiping down
+        } else if (dy < -20) {
+          status.innerText = 'Swiped Up!';
+          // Add logic for swiping up
+        }
+      }
+    }
+  </script>
+</body>
+</html>
