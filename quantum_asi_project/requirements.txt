@@ -1,8 +1,0 @@
-
-flask
-matplotlib
-transformers
-qiskit
-pylint
-pytest
-concurrent-log-handler
