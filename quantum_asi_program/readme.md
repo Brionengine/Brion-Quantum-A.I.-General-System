@@ -1,4 +1,4 @@
-﻿Quantum ASI Project
+﻿Quantum ASI Program
 
 🎉✨🌟 This repository contains the Quantum ASI System, an advanced platform integrating quantum-inspired optimization, AI-assisted code refactoring, and autonomous system upgrades. 🎯🚀💡
 
