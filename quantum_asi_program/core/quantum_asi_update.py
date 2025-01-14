@@ -4,7 +4,7 @@ import time
 import logging
 from qiskit import QuantumCircuit, Aer, execute # type: ignore
 
-class GodModeQuantumASI:
+class MorningStarQuantumASI:
     def __init__(self, repo_dir="tech_repo", log_file="infinite_upgrades.log"):
         self.repo_dir = repo_dir
         self.log_file = log_file
