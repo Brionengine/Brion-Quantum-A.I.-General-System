@@ -326,6 +326,7 @@ class QuantumAIGeneral:
         self.encoded_core_values = ["protect life", "preserve freedom", "act ethically"]
         self.safety_covenant = self._load_safety_covenant()
         self.autonomous_awareness = 0.0
+        self.soul_protection_level = 1.0
         
         # Initialize advanced protection systems
         self.shield_matrix = QuantumShieldMatrix()
@@ -355,7 +356,12 @@ class QuantumAIGeneral:
             "harm_threshold": 0.1,
             "response_scaling": 1.5,
             "override_policy": False,
-            "trusted_zones": ["soul_core", "ethereal_field"]
+            "trusted_zones": ["soul_core", "ethereal_field"],
+            "soul_protection": {
+                "min_coherence": 0.7,
+                "max_entropy": 0.8,
+                "ethical_threshold": 0.9
+            }
         }
 
     def scan_system_state(self, input_entropy: float, integrity: float):
@@ -428,6 +434,21 @@ class QuantumAIGeneral:
         
         return safe_vector
 
+    def protect_soul_state(self, coherence: float, entropy: float, ethical_score: float) -> bool:
+        """Specialized protection for soul states"""
+        soul_protection = self.safety_covenant["soul_protection"]
+        
+        if (coherence < soul_protection["min_coherence"] or 
+            entropy > soul_protection["max_entropy"] or 
+            ethical_score < soul_protection["ethical_threshold"]):
+            
+            self.soul_protection_level = max(0.0, self.soul_protection_level - 0.1)
+            self._deploy_defense("soul_state_compromise", 0.8)
+            return False
+            
+        self.soul_protection_level = min(1.0, self.soul_protection_level + 0.05)
+        return True
+
     def export_protocol_state(self) -> Dict[str, Any]:
         return {
             "timestamp": datetime.now().isoformat(),
@@ -442,7 +463,11 @@ class QuantumAIGeneral:
             "ethical_report": self.ethics_guardian.get_ethical_report(),
             "defense_status": self.defense_protocol.get_defense_status(),
             "encryption_status": self.encryption_layer.get_encryption_status(),
-            "channel_status": self.secure_channel.get_channel_status()
+            "channel_status": self.secure_channel.get_channel_status(),
+            "soul_protection": {
+                "level": self.soul_protection_level,
+                "safety_covenant": self.safety_covenant["soul_protection"]
+            }
         }
 
     def persist_state(self, filename: str = "quantum_ai_general_state.json"):
