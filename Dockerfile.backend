@@ -1,0 +1,55 @@
+# Multi-stage build for Brion Quantum AI Lab Backend
+
+# Stage 1: Build C library
+FROM ubuntu:22.04 AS c-builder
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    make \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+COPY c-lib/ ./c-lib/
+WORKDIR /build/c-lib
+RUN make clean && make -j$(nproc)
+
+# Stage 2: Build Rust backend
+FROM rust:1.75 AS rust-builder
+
+WORKDIR /build
+
+# Copy C library artifacts
+COPY --from=c-builder /build/c-lib/libbrion_quantum.* ./c-lib/
+
+# Copy Rust project
+COPY backend/Cargo.toml backend/Cargo.lock ./backend/
+COPY backend/src ./backend/src
+COPY backend/build.rs ./backend/
+
+# Build Rust backend
+WORKDIR /build/backend
+RUN cargo build --release
+
+# Stage 3: Runtime
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    libc6 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy C library
+COPY --from=c-builder /build/c-lib/libbrion_quantum.so /usr/local/lib/
+RUN ldconfig
+
+# Copy Rust binary
+COPY --from=rust-builder /build/backend/target/release/brion-qt-backend /app/
+
+EXPOSE 8080
+
+CMD ["./brion-qt-backend"]
+

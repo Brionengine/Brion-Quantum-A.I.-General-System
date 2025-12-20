@@ -1,0 +1,42 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build files (if you add a build process later)
+dist/
+build/
+.cache/
+
+# Rust
+backend/target/
+backend/Cargo.lock
+**/*.rs.bk
+
+# C library
+c-lib/obj/
+c-lib/*.so
+c-lib/*.a
+c-lib/*.o
+
+# Docker
+*.log
+
+# Environment
+.env
+.env.local

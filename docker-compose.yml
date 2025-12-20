@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # Redis cache
+  redis:
+    image: redis:7-alpine
+    container_name: brion-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - brion-network
+
+  # Rust backend API
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: brion-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - RUST_LOG=info
+      - REDIS_URL=redis://redis:6379/
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app/backend
+      - ./c-lib:/app/c-lib
+    networks:
+      - brion-network
+    restart: unless-stopped
+
+  # Nginx reverse proxy (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: brion-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./styles:/usr/share/nginx/html/styles:ro
+      - ./scripts:/usr/share/nginx/html/scripts:ro
+    depends_on:
+      - backend
+    networks:
+      - brion-network
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+
+networks:
+  brion-network:
+    driver: bridge
+
