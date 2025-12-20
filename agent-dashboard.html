@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Dashboard - Brion.qt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e27;
+            color: #e0e7ff;
+            padding: 2rem;
+        }
+
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: #00d4ff;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #94a3b8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #1a1f3a;
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #00d4ff;
+            transform: translateY(-2px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .section {
+            background: #1a1f3a;
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .changes-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .change-item {
+            background: #0a0e27;
+            border: 1px solid #2d3748;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .change-info {
+            flex: 1;
+        }
+
+        .change-file {
+            color: #00d4ff;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .change-meta {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .change-score {
+            text-align: right;
+            margin-right: 1rem;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .score-good {
+            color: #10b981;
+        }
+
+        .score-medium {
+            color: #f59e0b;
+        }
+
+        .score-poor {
+            color: #ef4444;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .versions-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .version-item {
+            background: #0a0e27;
+            border: 1px solid #2d3748;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .version-id {
+            color: #00d4ff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .version-meta {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #94a3b8;
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.1) rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>🤖 AI Agent Dashboard</h1>
+            <p>Autonomous Development & Optimization System</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalTasks">0</div>
+                <div class="stat-label">Total Tasks Executed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="successfulChanges">0</div>
+                <div class="stat-label">Successful Changes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="rolledBack">0</div>
+                <div class="stat-label">Rolled Back Changes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="activeAgents">0</div>
+                <div class="stat-label">Active Agents</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <span class="status-indicator"></span>
+                Recent Changes
+            </div>
+            <div class="changes-list" id="changesList">
+                <div class="loading">Loading changes...</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Version History</div>
+            <div class="versions-list" id="versionsList">
+                <div class="loading">Loading versions...</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-btn" onclick="refreshData()" title="Refresh Data">↻</button>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api/v1';
+
+        async function fetchAgentStats() {
+            try {
+                const response = await fetch(`${API_BASE}/agents/stats`);
+                const stats = await response.json();
+                
+                document.getElementById('totalTasks').textContent = stats.total_tasks_executed || 0;
+                document.getElementById('successfulChanges').textContent = stats.successful_changes || 0;
+                document.getElementById('rolledBack').textContent = stats.rolled_back_changes || 0;
+                document.getElementById('activeAgents').textContent = stats.agents_active || 0;
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        }
+
+        async function fetchChanges() {
+            try {
+                const response = await fetch(`${API_BASE}/agents/changes`);
+                const changes = await response.json();
+                
+                const changesList = document.getElementById('changesList');
+                
+                if (changes.length === 0) {
+                    changesList.innerHTML = '<div class="loading">No changes yet</div>';
+                    return;
+                }
+
+                changesList.innerHTML = changes.map(change => {
+                    const score = change.evaluation_score || 0;
+                    const scoreClass = score >= 0.7 ? 'score-good' : score >= 0.5 ? 'score-medium' : 'score-poor';
+                    const date = new Date(change.timestamp).toLocaleString();
+                    
+                    return `
+                        <div class="change-item">
+                            <div class="change-info">
+                                <div class="change-file">${escapeHtml(change.file_path)}</div>
+                                <div class="change-meta">
+                                    ${change.agent_type} • ${date}
+                                </div>
+                            </div>
+                            <div class="change-score">
+                                <div class="score-value ${scoreClass}">${(score * 100).toFixed(0)}%</div>
+                            </div>
+                            ${score < 0.6 ? `<button class="btn btn-danger" onclick="rollbackChange('${change.id}')">Rollback</button>` : ''}
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error fetching changes:', error);
+                document.getElementById('changesList').innerHTML = '<div class="loading">Error loading changes</div>';
+            }
+        }
+
+        async function fetchVersions() {
+            try {
+                const response = await fetch(`${API_BASE}/agents/versions`);
+                const data = await response.json();
+                
+                const versionsList = document.getElementById('versionsList');
+                
+                if (!data.versions || data.versions.length === 0) {
+                    versionsList.innerHTML = '<div class="loading">No versions yet</div>';
+                    return;
+                }
+
+                versionsList.innerHTML = data.versions.slice().reverse().map(version => {
+                    const date = new Date(version.timestamp).toLocaleString();
+                    return `
+                        <div class="version-item">
+                            <div class="version-id">${version.version_id} ${version.version_id === data.current_version ? '(Current)' : ''}</div>
+                            <div class="version-meta">
+                                ${version.total_files_changed} files changed • ${date}
+                            </div>
+                            <div class="version-meta" style="margin-top: 0.5rem;">
+                                ${escapeHtml(version.description)}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error fetching versions:', error);
+                document.getElementById('versionsList').innerHTML = '<div class="loading">Error loading versions</div>';
+            }
+        }
+
+        async function rollbackChange(changeId) {
+            if (!confirm('Are you sure you want to rollback this change?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/agents/rollback`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ change_id: changeId }),
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Change rolled back successfully');
+                    refreshData();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error rolling back change:', error);
+                alert('Error rolling back change');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        async function refreshData() {
+            await Promise.all([
+                fetchAgentStats(),
+                fetchChanges(),
+                fetchVersions(),
+            ]);
+        }
+
+        // Initial load
+        refreshData();
+
+        // Auto-refresh every 10 seconds
+        setInterval(refreshData, 10000);
+    </script>
+</body>
+</html>
+
