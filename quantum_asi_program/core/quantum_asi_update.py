@@ -146,7 +146,7 @@ class MorningStarQuantumASI:
     transformations, tests results, and accepts or rolls back changes atomically.
     """
 
-    VERSION = "2.0.0"
+    VERSION = "2.1.85"
 
     def __init__(self, repo_dir: str = "tech_repo", log_file: str = "infinite_upgrades.log",
                  max_cycles: int = 100, min_quality_delta: float = -0.01):
