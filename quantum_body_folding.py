@@ -3,21 +3,43 @@
 Quantum Body Folding System
 Implements quantum-enhanced biological folding and structural optimization.
 """
+from __future__ import annotations
+
 
 import logging
 import time
 import threading
-import numpy as np
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
 from typing import Dict, Any, Optional, List, Set, Tuple, Callable
 from queue import Queue
 from dataclasses import dataclass
 from concurrent.futures import ThreadPoolExecutor
-import cirq
-import qiskit
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+try:
+    import cirq
+except ImportError:  # optional dependency: pip install cirq
+    cirq = None
+try:
+    import qiskit
+except ImportError:  # optional dependency: pip install qiskit
+    qiskit = None
+try:
+    from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
+    QuantumRegister = None
+    ClassicalRegister = None
 import json
-import torch
-import torch.nn as nn
+try:
+    import torch
+except ImportError:  # optional dependency: pip install torch
+    torch = None
+try:
+    import torch.nn as nn
+except ImportError:  # optional dependency: pip install torch
+    nn = None
 
 logger = logging.getLogger("quantum_brion.body_folding")
 

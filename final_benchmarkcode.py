@@ -1,3 +1,13 @@
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
+import time
+
+from ryan_infinite_qubit_model import RyanActionModel
+
 def finalize_benchmarking(episodes=1000):
     ryan = RyanActionModel()
     total_reward = 0

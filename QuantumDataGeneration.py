@@ -1,8 +1,19 @@
 # quantum_data_encoding.py
+from __future__ import annotations
 
-from qiskit import QuantumCircuit
-from qiskit.circuit import Parameter
-import numpy as np
+
+try:
+    from qiskit import QuantumCircuit
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
+try:
+    from qiskit.circuit import Parameter
+except ImportError:  # optional dependency: pip install qiskit
+    Parameter = None
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
 
 def encode_data(data):
     # Assuming data is a 1D numpy array of length equal to the number of qubits

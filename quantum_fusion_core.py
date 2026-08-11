@@ -1,6 +1,11 @@
 # quantum_fusion/core.py
+from __future__ import annotations
 
-from qiskit import QuantumCircuit
+
+try:
+    from qiskit import QuantumCircuit
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
 
 def create_fusion_circuit(num_qubits):
     """

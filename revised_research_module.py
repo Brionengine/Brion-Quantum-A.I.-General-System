@@ -1,13 +1,21 @@
+from __future__ import annotations
+
 
 import os
 import requests
 import PyPDF2
 import io
 import pytesseract
-from PIL import Image
+try:
+    from PIL import Image
+except ImportError:  # optional dependency: pip install pillow
+    Image = None
 from bs4 import BeautifulSoup
 import pyttsx3
-import cv2
+try:
+    import cv2
+except ImportError:  # optional dependency: pip install opencv-python
+    cv2 = None
 import subprocess
 
 # PDF Extraction

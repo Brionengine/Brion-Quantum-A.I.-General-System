@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Dict, Any, Optional
+from typing import Any, Dict, List, Optional
 from datetime import datetime
 
 class MultidimensionalStatePersistence:

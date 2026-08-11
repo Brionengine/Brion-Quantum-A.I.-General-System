@@ -1,9 +1,26 @@
 # vqe_energy_minimization.py
+from __future__ import annotations
 
-from qiskit.algorithms import VQE
-from qiskit.circuit.library import RealAmplitudes
-from qiskit.opflow import X, Z, I, PauliSumOp
-from qiskit.primitives import Sampler
+
+try:
+    from qiskit.algorithms import VQE
+except ImportError:  # optional dependency: pip install qiskit
+    VQE = None
+try:
+    from qiskit.circuit.library import RealAmplitudes
+except ImportError:  # optional dependency: pip install qiskit
+    RealAmplitudes = None
+try:
+    from qiskit.opflow import X, Z, I, PauliSumOp
+except ImportError:  # optional dependency: pip install qiskit
+    X = None
+    Z = None
+    I = None
+    PauliSumOp = None
+try:
+    from qiskit.primitives import Sampler
+except ImportError:  # optional dependency: pip install qiskit
+    Sampler = None
 
 def vqe_energy_minimization(circuit, params):
     # Define a Hamiltonian for energy minimization (e.g., H = XZ + ZI)

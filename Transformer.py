@@ -1,6 +1,19 @@
-from transformers import ViTForImageClassification, ViTFeatureExtractor
-from transformers import CLIPProcessor, CLIPModel
-from torch.utils.data import DataLoader
+from __future__ import annotations
+
+try:
+    from transformers import ViTForImageClassification, ViTFeatureExtractor
+except ImportError:  # optional dependency: pip install transformers
+    ViTForImageClassification = None
+    ViTFeatureExtractor = None
+try:
+    from transformers import CLIPProcessor, CLIPModel
+except ImportError:  # optional dependency: pip install transformers
+    CLIPProcessor = None
+    CLIPModel = None
+try:
+    from torch.utils.data import DataLoader
+except ImportError:  # optional dependency: pip install torch
+    DataLoader = None
 
 # Load and fine-tune ViT model
 vit_model = ViTForImageClassification.from_pretrained('google/vit-base-patch16-224-in21k')

@@ -1,5 +1,14 @@
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from __future__ import annotations
+
+try:
+    import torch
+except ImportError:  # optional dependency: pip install torch
+    torch = None
+try:
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+except ImportError:  # optional dependency: pip install transformers
+    AutoModelForCausalLM = None
+    AutoTokenizer = None
 
 def load_model(model_path):
     """

@@ -1,5 +1,14 @@
-from transformers import GPT2Tokenizer, GPT2LMHeadModel
-import torch
+from __future__ import annotations
+
+try:
+    from transformers import GPT2Tokenizer, GPT2LMHeadModel
+except ImportError:  # optional dependency: pip install transformers
+    GPT2Tokenizer = None
+    GPT2LMHeadModel = None
+try:
+    import torch
+except ImportError:  # optional dependency: pip install torch
+    torch = None
 
 # Initialize a GPT model for auto-code generation
 def initialize_gpt_model():

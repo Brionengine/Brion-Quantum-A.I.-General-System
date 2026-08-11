@@ -1,3 +1,14 @@
+from __future__ import annotations
+
+try:
+    import torch
+except ImportError:  # optional dependency: pip install torch
+    torch = None
+try:
+    import torch.nn as nn
+except ImportError:  # optional dependency: pip install torch
+    nn = None
+
 class HybridModel(nn.Module):
     def __init__(self, vit_model, clip_model):
         super(HybridModel, self).__init__()

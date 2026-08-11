@@ -1,7 +1,20 @@
 # quantum_neural_network.py
+from __future__ import annotations
 
-from qiskit import QuantumCircuit, Aer, execute
-from qiskit.circuit.library import TwoLocal
+
+try:
+    from qiskit import QuantumCircuit, transpile
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
+    transpile = None
+try:
+    from qiskit_aer import Aer
+except ImportError:  # optional dependency: pip install qiskit-aer
+    Aer = None
+try:
+    from qiskit.circuit.library import TwoLocal
+except ImportError:  # optional dependency: pip install qiskit
+    TwoLocal = None
 from qiskit_machine_learning.neural_networks import SamplerQNN
 from qiskit_machine_learning.algorithms.classifiers import VQC
 

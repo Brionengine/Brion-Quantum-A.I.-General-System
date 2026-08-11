@@ -1,3 +1,5 @@
+import time
+
 def sparse_coding_with_time(data, task_complexity='regular'):
     """
     Applies sparse coding to find key features in medical data with time constraints.

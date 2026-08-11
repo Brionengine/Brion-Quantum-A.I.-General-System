@@ -1,6 +1,12 @@
 # ai_engine/models.py
+from __future__ import annotations
 
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+
+try:
+    from transformers import T5Tokenizer, T5ForConditionalGeneration
+except ImportError:  # optional dependency: pip install transformers
+    T5Tokenizer = None
+    T5ForConditionalGeneration = None
 
 class AIModel:
     def __init__(self, model_name='t5-small'):

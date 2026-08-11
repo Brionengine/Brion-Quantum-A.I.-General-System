@@ -1,3 +1,12 @@
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
+
+from codeintegration import Warrior
+
 import time
 
 def benchmark_warrior():

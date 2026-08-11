@@ -1,3 +1,5 @@
+import logging
+
 def safe_execute(function):
     """
     Decorator to safely execute functions with exception handling.

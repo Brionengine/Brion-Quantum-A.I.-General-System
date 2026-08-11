@@ -1,6 +1,11 @@
+from __future__ import annotations
+
 from datetime import time
 import logging
-import matplotlib.pyplot as plt # type: ignore
+try:
+    import matplotlib.pyplot as plt # type: ignore
+except ImportError:  # optional dependency: pip install matplotlib
+    plt = None
 
 def visualize_upgrades(upgrade_data):
     """Visualize the number of upgrades per cycle."""

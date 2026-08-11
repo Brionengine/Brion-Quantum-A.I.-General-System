@@ -1,9 +1,14 @@
+from __future__ import annotations
+
 import os
 import subprocess
 import sqlite3
 import time
 import tracemalloc
-import psutil  # For system-level benchmarks
+try:
+    import psutil  # For system-level benchmarks
+except ImportError:  # optional dependency: pip install psutil
+    psutil = None
 import requests  # For web requests during research
 from bs4 import BeautifulSoup  # For web scraping
 

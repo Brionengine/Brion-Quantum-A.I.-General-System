@@ -1,5 +1,13 @@
-import numpy as np
-from sklearn.decomposition import SparseCoder
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
+try:
+    from sklearn.decomposition import SparseCoder
+except ImportError:  # optional dependency: pip install scikit-learn
+    SparseCoder = None
 
 def sparse_coding(data):
     """

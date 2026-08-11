@@ -1,5 +1,10 @@
+from __future__ import annotations
 
-import numpy as np
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
 import time
 
 class RyanActionModel:

@@ -1,3 +1,11 @@
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
+from typing import Any, Dict, List, Optional
+
 class DimensionalMemoryLayer:
     def __init__(self):
         self.layers = {

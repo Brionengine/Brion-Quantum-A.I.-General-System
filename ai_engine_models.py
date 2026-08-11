@@ -1,5 +1,13 @@
-from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
+from __future__ import annotations
+
+try:
+    from Crypto.Cipher import AES
+except ImportError:  # optional dependency: pip install pycryptodome
+    AES = None
+try:
+    from Crypto.Random import get_random_bytes
+except ImportError:  # optional dependency: pip install pycryptodome
+    get_random_bytes = None
 import base64
 
 def encrypt_aes(data, key):

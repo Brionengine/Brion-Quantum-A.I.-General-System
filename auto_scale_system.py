@@ -1,6 +1,11 @@
+from __future__ import annotations
+
 import threading
 import time
-import psutil  # For system resource monitoring
+try:
+    import psutil  # For system resource monitoring
+except ImportError:  # optional dependency: pip install psutil
+    psutil = None
 from concurrent.futures import ThreadPoolExecutor
 
 class AutoScaler:

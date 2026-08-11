@@ -1,6 +1,11 @@
 # superdense_coding.py
+from __future__ import annotations
 
-from qiskit import QuantumCircuit
+
+try:
+    from qiskit import QuantumCircuit
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
 
 def superdense_coding():
     # Create a Bell state to share entanglement

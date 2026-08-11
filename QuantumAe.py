@@ -1,4 +1,9 @@
-import numpy as np
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
 import json
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional, Tuple

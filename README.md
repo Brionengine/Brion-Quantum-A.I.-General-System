@@ -166,3 +166,9 @@ Potential additions:
 - GitHub: [@Brionengine](https://github.com/Brionengine)
 - X (Twitter): [@Brionengine](https://x.com/Brionengine)
 
+
+## Optional dependencies
+
+This repository imports without the heavy scientific stack (numpy, torch,
+tensorflow, qiskit, cirq, ...). Clone it and run it; install only the packages
+the parts you actually use need. See [OPTIONAL_DEPENDENCIES.md](OPTIONAL_DEPENDENCIES.md).

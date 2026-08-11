@@ -1,6 +1,11 @@
 # quantum_error_correction.py
+from __future__ import annotations
 
-from qiskit import QuantumCircuit
+
+try:
+    from qiskit import QuantumCircuit
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
 
 def three_qubit_bit_flip_code():
     # Encode a logical qubit into three physical qubits

@@ -1,4 +1,9 @@
-from torch import nn
+from __future__ import annotations
+
+try:
+    from torch import nn
+except ImportError:  # optional dependency: pip install torch
+    nn = None
 
 class CrossModalAttentionLayer(nn.Module):
     def __init__(self, text_dim, image_dim, hidden_dim):

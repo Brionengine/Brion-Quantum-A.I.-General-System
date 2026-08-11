@@ -1,4 +1,9 @@
-from transformers import pipeline # type: ignore
+from __future__ import annotations
+
+try:
+    from transformers import pipeline # type: ignore
+except ImportError:  # optional dependency: pip install transformers
+    pipeline = None
 
 def ai_refactor_code(code_snippet):
     """Refactor code using an AI model."""

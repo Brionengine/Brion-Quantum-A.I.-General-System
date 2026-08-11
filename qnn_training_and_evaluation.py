@@ -1,8 +1,13 @@
 # qnn_training_and_evaluation.py
+from __future__ import annotations
+
 
 from qiskit_machine_learning.algorithms.classifiers import VQC
 from qiskit_machine_learning.datasets import ad_hoc_data
-from qiskit.utils import algorithm_globals
+try:
+    from qiskit.utils import algorithm_globals
+except ImportError:  # optional dependency: pip install qiskit
+    algorithm_globals = None
 
 def train_and_evaluate_qnn(qnn):
     # Load a sample dataset

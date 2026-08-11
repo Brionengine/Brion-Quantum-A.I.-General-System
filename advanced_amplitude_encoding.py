@@ -1,7 +1,15 @@
 # advanced_amplitude_encoding.py
+from __future__ import annotations
 
-from qiskit import QuantumCircuit
-import numpy as np
+
+try:
+    from qiskit import QuantumCircuit
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
 
 def amplitude_encoding(data):
     # Ensure data is normalized to sum to 1

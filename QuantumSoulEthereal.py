@@ -1,6 +1,17 @@
-import numpy as np
-import torch
-import torch.nn as nn
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
+try:
+    import torch
+except ImportError:  # optional dependency: pip install torch
+    torch = None
+try:
+    import torch.nn as nn
+except ImportError:  # optional dependency: pip install torch
+    nn = None
 from datetime import datetime, timedelta
 import json
 import os
@@ -14,9 +25,21 @@ from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from typing import Dict, Any, Optional, List, Tuple, Union
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute
-from qiskit.quantum_info import Statevector
-from qiskit_aer import Aer
+try:
+    from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, transpile
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
+    QuantumRegister = None
+    ClassicalRegister = None
+    transpile = None
+try:
+    from qiskit.quantum_info import Statevector
+except ImportError:  # optional dependency: pip install qiskit
+    Statevector = None
+try:
+    from qiskit_aer import Aer
+except ImportError:  # optional dependency: pip install qiskit-aer
+    Aer = None
 
 logger = logging.getLogger("quantum_soul_ethereal")
 
@@ -869,7 +892,7 @@ class QuantumSoulEthereal:
             
             # Execute the circuit
             backend = Aer.get_backend('qasm_simulator')
-            job = execute(self.qcircuit, backend, shots=1)
+            job = backend.run(transpile(self.qcircuit, backend), shots=1)
             result = job.result()
             counts = result.get_counts()
             

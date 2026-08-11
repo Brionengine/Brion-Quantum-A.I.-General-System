@@ -1,10 +1,38 @@
-from qiskit import Aer, transpile, assemble
-from qiskit.circuit.library import TwoLocal
-from qiskit.algorithms import VQE
-from qiskit.algorithms.optimizers import COBYLA
-from qiskit.primitives import Sampler
-from qiskit.quantum_info import Operator
-import numpy as np
+from __future__ import annotations
+
+try:
+    from qiskit import transpile, assemble
+except ImportError:  # optional dependency: pip install qiskit
+    transpile = None
+    assemble = None
+try:
+    from qiskit_aer import Aer
+except ImportError:  # optional dependency: pip install qiskit-aer
+    Aer = None
+try:
+    from qiskit.circuit.library import TwoLocal
+except ImportError:  # optional dependency: pip install qiskit
+    TwoLocal = None
+try:
+    from qiskit.algorithms import VQE
+except ImportError:  # optional dependency: pip install qiskit
+    VQE = None
+try:
+    from qiskit.algorithms.optimizers import COBYLA
+except ImportError:  # optional dependency: pip install qiskit
+    COBYLA = None
+try:
+    from qiskit.primitives import Sampler
+except ImportError:  # optional dependency: pip install qiskit
+    Sampler = None
+try:
+    from qiskit.quantum_info import Operator
+except ImportError:  # optional dependency: pip install qiskit
+    Operator = None
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
 
 # Define the Hamiltonian for the system
 H = Operator([

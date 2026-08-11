@@ -1,3 +1,10 @@
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
+
 import os
 import pickle
 import time

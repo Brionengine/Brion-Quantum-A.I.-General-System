@@ -1,25 +1,83 @@
-import numpy as np
-import strawberryfields as sf
-from strawberryfields.ops import *
-import openmm as mm
-import openmm.app as app
-import openmm.unit as unit
-from Bio.PDB import *
-from Bio.PDB.Structure import Structure
-from Bio.PDB.Model import Model
-from Bio.PDB.Chain import Chain
-from Bio.PDB.Residue import Residue
-from Bio.PDB.Atom import Atom
-from scipy.spatial import distance_matrix
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
+try:
+    import strawberryfields as sf
+except ImportError:  # optional dependency: pip install strawberryfields
+    sf = None
+try:
+    from strawberryfields.ops import *
+except ImportError:  # optional dependency: pip install strawberryfields
+    pass
+try:
+    import openmm as mm
+except ImportError:  # optional dependency: pip install openmm
+    mm = None
+try:
+    import openmm.app as app
+except ImportError:  # optional dependency: pip install openmm
+    app = None
+try:
+    import openmm.unit as unit
+except ImportError:  # optional dependency: pip install openmm
+    unit = None
+try:
+    from Bio.PDB import *
+except ImportError:  # optional dependency: pip install biopython
+    pass
+try:
+    from Bio.PDB.Structure import Structure
+except ImportError:  # optional dependency: pip install biopython
+    Structure = None
+try:
+    from Bio.PDB.Model import Model
+except ImportError:  # optional dependency: pip install biopython
+    Model = None
+try:
+    from Bio.PDB.Chain import Chain
+except ImportError:  # optional dependency: pip install biopython
+    Chain = None
+try:
+    from Bio.PDB.Residue import Residue
+except ImportError:  # optional dependency: pip install biopython
+    Residue = None
+try:
+    from Bio.PDB.Atom import Atom
+except ImportError:  # optional dependency: pip install biopython
+    Atom = None
+try:
+    from scipy.spatial import distance_matrix
+except ImportError:  # optional dependency: pip install scipy
+    distance_matrix = None
 import logging
 import json
 from datetime import datetime
 from typing import Dict, List, Tuple, Optional
-import torch
-import torch.nn as nn
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
-from scipy.linalg import expm
-from sklearn.preprocessing import StandardScaler
+try:
+    import torch
+except ImportError:  # optional dependency: pip install torch
+    torch = None
+try:
+    import torch.nn as nn
+except ImportError:  # optional dependency: pip install torch
+    nn = None
+try:
+    from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
+    QuantumRegister = None
+    ClassicalRegister = None
+try:
+    from scipy.linalg import expm
+except ImportError:  # optional dependency: pip install scipy
+    expm = None
+try:
+    from sklearn.preprocessing import StandardScaler
+except ImportError:  # optional dependency: pip install scikit-learn
+    StandardScaler = None
 
 # Configure logging
 logging.basicConfig(

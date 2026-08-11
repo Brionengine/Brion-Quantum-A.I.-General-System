@@ -1,4 +1,9 @@
-import numpy as np
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
 from typing import List, Dict, Any
 from datetime import datetime
 

@@ -1,8 +1,24 @@
 # quantum_inference_engine.py
+from __future__ import annotations
 
-from qiskit import Aer, transpile, QuantumCircuit
-from qiskit.providers.aer import AerSimulator
-from qiskit.circuit import Parameter
+
+try:
+    from qiskit import transpile, QuantumCircuit
+except ImportError:  # optional dependency: pip install qiskit
+    transpile = None
+    QuantumCircuit = None
+try:
+    from qiskit_aer import Aer
+except ImportError:  # optional dependency: pip install qiskit-aer
+    Aer = None
+try:
+    from qiskit.providers.aer import AerSimulator
+except ImportError:  # optional dependency: pip install qiskit
+    AerSimulator = None
+try:
+    from qiskit.circuit import Parameter
+except ImportError:  # optional dependency: pip install qiskit
+    Parameter = None
 
 def inference_circuit(num_qubits):
     qc = QuantumCircuit(num_qubits)

@@ -1,5 +1,10 @@
+from __future__ import annotations
+
 import time
-import psutil
+try:
+    import psutil
+except ImportError:  # optional dependency: pip install psutil
+    psutil = None
 
 def auto_scale_system(min_resources=0.2, max_resources=0.8, task_complexity='regular'):
     """

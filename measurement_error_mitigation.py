@@ -1,14 +1,28 @@
 # measurement_error_mitigation.py
+from __future__ import annotations
 
-from qiskit import Aer, execute, QuantumCircuit
-from qiskit.utils.mitigation import CompleteMeasFitter, TensoredMeasFitter
+
+try:
+    from qiskit import QuantumCircuit, transpile
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
+    transpile = None
+try:
+    from qiskit_aer import Aer
+except ImportError:  # optional dependency: pip install qiskit-aer
+    Aer = None
+try:
+    from qiskit.utils.mitigation import CompleteMeasFitter, TensoredMeasFitter
+except ImportError:  # optional dependency: pip install qiskit
+    CompleteMeasFitter = None
+    TensoredMeasFitter = None
 
 def measurement_error_mitigation(qc, shots=1024):
     # Simulate the noisy environment using Aer's QASM simulator
     backend = Aer.get_backend('qasm_simulator')
     
     # Run the circuit and get measurement counts
-    result = execute(qc, backend, shots=shots).result()
+    result = backend.run(transpile(qc, backend), shots=shots).result()
     counts = result.get_counts()
     
     # Perform error mitigation

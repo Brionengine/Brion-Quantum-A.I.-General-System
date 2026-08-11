@@ -1,6 +1,14 @@
+from __future__ import annotations
+
 import datetime
-import numpy as np
-from sklearn.ensemble import RandomForestRegressor
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
+try:
+    from sklearn.ensemble import RandomForestRegressor
+except ImportError:  # optional dependency: pip install scikit-learn
+    RandomForestRegressor = None
 
 # Optimized function to predict energy generation based on weather data, solar panel technology, and efficiency
 def predict_energy_output(weather_data, historical_data, panel_efficiency, advanced_tech_factor=1.2):

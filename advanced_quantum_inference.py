@@ -1,7 +1,16 @@
 # advanced_quantum_inference.py
+from __future__ import annotations
 
-from qiskit.algorithms import IterativeAmplitudeEstimation, EstimationProblem
-from qiskit.quantum_info import Operator
+
+try:
+    from qiskit.algorithms import IterativeAmplitudeEstimation, EstimationProblem
+except ImportError:  # optional dependency: pip install qiskit
+    IterativeAmplitudeEstimation = None
+    EstimationProblem = None
+try:
+    from qiskit.quantum_info import Operator
+except ImportError:  # optional dependency: pip install qiskit
+    Operator = None
 
 def advanced_inference_circuit(qc):
     # Apply additional transformations or complex oracles for inference

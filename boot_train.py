@@ -1,5 +1,13 @@
-import numpy as np
-from sklearn.utils import resample
+from __future__ import annotations
+
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
+try:
+    from sklearn.utils import resample
+except ImportError:  # optional dependency: pip install scikit-learn
+    resample = None
 
 def bootstrap_sample_training(data, num_iterations=100):
     """

@@ -18,6 +18,8 @@ Novel Algorithm: Quantum-Guided Autonomous Code Evolution (QGACE)
 
 Developed by Brion Quantum AI Team
 """
+from __future__ import annotations
+
 
 import os
 import ast
@@ -31,7 +33,8 @@ from datetime import datetime
 from dataclasses import dataclass, field
 
 try:
-    from qiskit import QuantumCircuit, Aer, execute  # type: ignore
+    from qiskit import QuantumCircuit, transpile  # type: ignore
+    from qiskit_aer import Aer  # type: ignore
     QISKIT_AVAILABLE = True
 except ImportError:
     QISKIT_AVAILABLE = False
@@ -189,7 +192,7 @@ class MorningStarQuantumASI:
                     circuit.h(i)
                 circuit.measure_all()
                 simulator = Aer.get_backend("qasm_simulator")
-                result = execute(circuit, simulator, shots=100).result()
+                result = simulator.run(transpile(circuit, simulator), shots=100).result()
                 counts = result.get_counts()
                 # Map measurement outcomes to strategies
                 measurements = sorted(counts.items(), key=lambda x: x[1], reverse=True)
@@ -512,7 +515,10 @@ class MorningStarQuantumASI:
 
 
 # Need numpy for fallback strategy selection
-import numpy as np
+try:
+    import numpy as np
+except ImportError:  # optional dependency: pip install numpy
+    np = None
 
 # Example Usage
 if __name__ == "__main__":

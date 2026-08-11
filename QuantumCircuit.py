@@ -1,8 +1,27 @@
 # variational_circuit.py
+from __future__ import annotations
 
-from qiskit import QuantumCircuit, Aer, transpile
-from qiskit.circuit import Parameter
-from qiskit.opflow import Z, StateFn, CircuitSampler, AerPauliExpectation
+
+try:
+    from qiskit import QuantumCircuit, transpile
+except ImportError:  # optional dependency: pip install qiskit
+    QuantumCircuit = None
+    transpile = None
+try:
+    from qiskit_aer import Aer
+except ImportError:  # optional dependency: pip install qiskit-aer
+    Aer = None
+try:
+    from qiskit.circuit import Parameter
+except ImportError:  # optional dependency: pip install qiskit
+    Parameter = None
+try:
+    from qiskit.opflow import Z, StateFn, CircuitSampler, AerPauliExpectation
+except ImportError:  # optional dependency: pip install qiskit
+    Z = None
+    StateFn = None
+    CircuitSampler = None
+    AerPauliExpectation = None
 
 def variational_circuit(num_qubits):
     # Define parameters

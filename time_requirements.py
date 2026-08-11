@@ -1,3 +1,5 @@
+import time
+
 def chain_of_thought_processing(problem, medical_data, task_complexity='regular'):
     """
     Implements a chain of thought process to break down complex medical problems with time management.

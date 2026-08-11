@@ -1,4 +1,6 @@
 # Optimized quantum_module.py
+from pathlib import Path
+
 optimized_quantum_module = """
 class QuantumModule:
     def __init__(self, algorithm='QAOA'):
@@ -149,10 +151,24 @@ optimized_files = {
     'module_integration.py': optimized_module_integration
 }
 
-# Writing optimized files back
-for filename, content in optimized_files.items():
-    optimized_file_path = f'/mnt/data/Quantum-System-Terminal-Functional-main/Quantum-System-Terminal-Functional-main/optimized_{filename}'
-    with open(optimized_file_path, 'w') as file:
-        file.write(content)
+# Writing optimized files back.
+#
+# The destination used to be an absolute path under /mnt/data pointing at one
+# machine's checkout, so this raised FileNotFoundError anywhere else -- and it
+# ran at import time, meaning merely importing this module tried to write four
+# files. It now writes beside this file, and only when run as a script.
+def write_optimized_files(output_dir=None):
+    """Write the generated sources to `output_dir` (default: ./optimized)."""
+    base = Path(output_dir) if output_dir else Path(__file__).resolve().parent / 'optimized'
+    base.mkdir(parents=True, exist_ok=True)
+    written = []
+    for filename, content in optimized_files.items():
+        target = base / f'optimized_{filename}'
+        target.write_text(content, encoding='utf-8')
+        written.append(target)
+    return written
 
-optimized_files
+
+if __name__ == '__main__':
+    for path in write_optimized_files():
+        print(f'wrote {path}')

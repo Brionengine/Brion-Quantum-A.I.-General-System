@@ -1,8 +1,23 @@
 # zero_noise_extrapolation.py
+from __future__ import annotations
 
-from qiskit import Aer, execute, transpile
-from qiskit.providers.aer.noise import NoiseModel
-from qiskit.algorithms import Extrapolator
+
+try:
+    from qiskit import transpile
+except ImportError:  # optional dependency: pip install qiskit
+    transpile = None
+try:
+    from qiskit_aer import Aer
+except ImportError:  # optional dependency: pip install qiskit-aer
+    Aer = None
+try:
+    from qiskit.providers.aer.noise import NoiseModel
+except ImportError:  # optional dependency: pip install qiskit
+    NoiseModel = None
+try:
+    from qiskit.algorithms import Extrapolator
+except ImportError:  # optional dependency: pip install qiskit
+    Extrapolator = None
 
 def zero_noise_extrapolation(qc, shots=1024):
     # Define a noise model
@@ -15,7 +30,7 @@ def zero_noise_extrapolation(qc, shots=1024):
     results = []
     for scale in [1, 2, 3]:  # Noise scaling factors
         scaled_qc = transpiled_qc.copy()
-        results.append(execute(scaled_qc, Aer.get_backend('qasm_simulator'), noise_model=noise_model, shots=shots).result())
+        results.append(Aer.get_backend('qasm_simulator').run(transpile(scaled_qc, Aer.get_backend('qasm_simulator')), noise_model=noise_model, shots=shots).result())
     
     # Extrapolate to estimate the zero-noise result
     extrapolator = Extrapolator()
