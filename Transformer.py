@@ -1,4 +1,3 @@
-import lib.import_module('transformers')
 from transformers import ViTForImageClassification, ViTFeatureExtractor
 from transformers import CLIPProcessor, CLIPModel
 from torch.utils.data import DataLoader
